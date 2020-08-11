@@ -20,6 +20,14 @@ function v12(df, M_cut, v12_type)
     nclus = length(M200c[ind])
     println(nclus)
 
+    if nclus <= 1000
+
+        println("-->> Sample-size is not large enough!<<--");
+
+        return nothing, nothing, nothing
+
+    end
+
     pos = df[ind, 2:4]./1.0/1   # /1 -> /1000
     #pos[:, 1] .+= 1000.0
     vel = df[ind, 5:7]
@@ -147,5 +155,16 @@ function divide_sample(df, n_sample)
     end
 
     return data_jk
+
+end
+
+
+# Signal to noise ratio
+function SNR(v12mean, C)
+
+    v12T = transpose(v12mean)
+    C_inv = inv(C[2:end-1, 2:end-1]);
+
+    return (v12T * C_inv * v12mean)/sqrt(v12T * C_inv * v12mean)
 
 end

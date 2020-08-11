@@ -1,18 +1,18 @@
 include("julia_v12_cov.jl")
 
 
-df = readdlm("/media/nareg/My Passport/Quijote_Sim/Catalogs/cat1.txt")
+#df = readdlm("/media/nareg/My Passport/Quijote_Sim/Catalogs/cat1.txt")
 #df2 = readdlm("/media/nareg/My Passport/Quijote_Sim/Catalogs/cat1.txt")
-#df3 = readdlm("/home/nareg/Downloads/websky_BG_SOxDESI.txt")
+df = readdlm("/home/nareg/Downloads//websky_BG_SOxDESI_txmap.txt")
 
 cat_i = "_websky"
 
 # Number of separation bins, separation bin size and threshold mass
 binsize = 4.0
 nbin = 50
-M_thr = 0.7e15
+M_thr = 0.8e15
 
-N_jk = 20;
+N_jk = 100;
 
 # r: is the separation between halos
 # v12_matrix: paiwise velocity for all possible pairs
@@ -59,11 +59,20 @@ C = zeros(n_r, n_r)
 
 end
 
-
-
+# ======================================================================
 # Save the results
+writedlm("SNR_$cat_i.txt", SNR(v12_mean, C))
 writedlm("Cov_v12_$cat_i.txt", C)
 writedlm("v12_avg_$cat_i.txt", v12_mean)
 
+println("Finished! Results Saved @ SNR_$cat_i.txt")
 println("Finished! Results Saved @ Cov_v12_$cat_i.txt")
 println("Finished! Results Saved @ v12_avg_$cat_i.txt")
+
+
+
+
+
+
+
+
